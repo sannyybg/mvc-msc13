@@ -1,0 +1,44 @@
+﻿@model IEnumerable<muscshop.Models.User>
+
+<table id="users" class="table">
+    <tr>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Confirmation</th>
+        <th>Rolechange</th>
+
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Username</td>
+            <td>@item.Email</td>
+            <td>@item.Active</td>
+            @{
+                var roleslitst = item.Roles.Select(x => x.RoleName).ToList();
+
+                if (roleslitst.Contains("Admin"))
+                {
+                    <td>Administrator</td>
+                }
+
+                else
+                {
+                    var text = item.Roles.Select(x => x.RoleName).ToList().Contains("Manager") ? "ჩამოერთვას მენეჯერი" : "გახდეს მენეჯერი";
+
+                    <td><a class="btn btn-danger" id="@item.UserId">@text</a></td>
+
+                }
+
+            }
+
+
+            
+        </tr>
+    }
+
+
+
+</table>

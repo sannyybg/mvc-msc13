@@ -1,0 +1,57 @@
+﻿@model IEnumerable<muscshop.Models.Album>
+
+@{
+    ViewBag.Title = "Index";
+}
+<br>
+@using (Ajax.BeginForm("Search1", new AjaxOptions { UpdateTargetId = "result", HttpMethod = "Get", InsertionMode = InsertionMode.Replace }))
+{
+    <input type="text" name="parameter" placeholder="Title" />
+    <input type="submit" value="Search" />
+
+}
+
+<div>
+    <input type="text" name="parameter" id="album-search" />
+</div>
+<ul class="list-group" id="search-results"></ul>
+
+
+<br>
+@Html.ActionLink("Create New", "Create")
+<br>
+<div id="result">
+    <table class="table">
+        <tr>
+            <th>Photo</th>
+            <th>Artist</th>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Release Year</th>
+            <th>Description</th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="@item.AlbumUrl" style="width:60px; height:60px" /></td>
+                <td><a href="/Store/ArtistInfo/@item.ArtistId">@item.Artist.Name</a></td>
+                <td>@item.Title</td>
+                <td>@item.Price</td>
+                <td>@item.ReleaseYear</td>
+                <th>@item.Description</th>
+                <td>@Html.ActionLink("Edit", "Edit", new { id = item.AlbumId })</td>
+                <td>@Html.ActionLink("Delete", "DeleteAlb", new { id = item.AlbumId })</td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+
+@section scripts
+{
+    <script src="~/Scripts/myscripts/musicshopscript.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

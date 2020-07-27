@@ -1,0 +1,35 @@
+﻿@model IEnumerable<muscshop.Models.Genre>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>Select from @Model.Count()</p>
+
+<ul>
+    @foreach (var genre in Model)
+    {
+        <li><a href="/Store/Browse?genre=@genre.Name">@genre.Name</a></li>
+
+    }
+</ul>
+
+
+<div id="result">
+    @Ajax.ActionLink("დღიური ფასდაკლება", "DailyDeal",
+        new AjaxOptions
+        {
+            UpdateTargetId = "result",
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "POST",
+
+        })
+</div>
+
+@section scripts
+{
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

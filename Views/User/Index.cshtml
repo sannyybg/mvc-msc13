@@ -1,0 +1,107 @@
+﻿@model IEnumerable<muscshop.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+
+<h2>Index</h2>
+
+<br>
+
+@*<div class="panel panel-default">
+    <div class="panel-heading">User Search</div>
+    <div class="panel-body">
+        @using (Ajax.BeginForm("Search",
+            new AjaxOptions
+            {
+                UpdateTargetId = "result",
+                HttpMethod = "Get",
+                InsertionMode = InsertionMode.Replace,
+                LoadingElementId = "Ajax-loader"
+            }))
+        {
+            <input type="text" name="parameter" />
+            <input type="submit" name="Search" />
+            <img src="@Url.Content("~/App_Files/images/Ajax-loader.gif")" id="Ajax-loader" style="display:none ; width:26px; height:26px; border-radius:50%" />
+        }
+
+    </div>
+
+</div>*@
+
+<div>
+    <input type="text" name="parameter" id="user-search" />
+</div>
+<ul class="list-group" id="search-results"></ul>
+
+
+<br>
+<div id="result">
+    <table id="users" class="table">
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Confirmation</th>
+            <th>Rolechange</th>
+
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Username</td>
+                <td>@item.Email</td>
+                <td>@item.Active</td>
+                @{
+                    var roleslitst = item.Roles.Select(x => x.RoleName).ToList();
+
+                    if (roleslitst.Contains("Admin"))
+                    {
+                        <td>Administrator</td>
+                    }
+
+                    else
+                    {
+                        var text = item.Roles.Select(x => x.RoleName).ToList().Contains("Manager") ? "ჩამოერთვას მენეჯერი" : "გახდეს მენეჯერი";
+
+                        <td><a class="btn btn-danger" id="@item.UserId">@text</a></td>
+
+                    }
+
+                }
+
+
+                @*@{ var roleslist = item.Roles.Select(x => x.RoleName).ToList();
+                        if (roleslist.Contains("Manager"))
+                        {
+                            <td>@Html.ActionLink("ჩამოერთვას მენეჯერი", null, new { id = item.UserId }, htmlAttributes: new {id = item.UserId })</td>
+                        }
+                        else if (roleslist.Contains("Customer") || roleslist.Contains("Guest"))
+                        {
+                            <td>@Html.ActionLink("გახდეს მენეჯერი", null, new { id = item.UserId }, htmlAttributes: new {id = item.UserId })</td>
+                        }
+
+                        else
+                        {
+                            <td>Administrator</td>
+                        }
+
+
+                    }*@
+            </tr>
+        }
+
+
+
+    </table>
+</div>
+
+
+@section scripts {
+    <script src="~/Scripts/myscripts/musicshopscript.js"></script>
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}

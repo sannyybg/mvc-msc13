@@ -1,0 +1,34 @@
+﻿@model muscshop.Models.Artist
+
+@{
+    ViewBag.Title = Model.Name + " Info";
+}
+
+<h2>@Model.Name</h2>
+
+<div>
+    
+    
+   
+    <center>
+
+
+
+        <img class="artistphotos" src="@Model.ImageUrl" />
+        <br>
+        <h3 style="margin-top: 10px">@Model.Name</h3>
+        <br>
+        <p style="margin-top: 10px">@Model.BasicInfo</p>
+
+
+
+    </center>
+
+
+
+    
+</div>
+<p>
+  
+    @Html.ActionLink("Back to Albums", "Index", "StoreManager")
+</p>

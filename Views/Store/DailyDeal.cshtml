@@ -1,0 +1,56 @@
+﻿@model muscshop.Models.Album
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">დღიური ფასდაკლება: @Model.Title</h3>
+    </div>
+
+    <div class="panel-body">
+        <p>
+            <img src="@Url.Content(Model.AlbumUrl)" alt="@Model.Title" style="width=100px; height:100px" />
+        </p>
+    </div>
+    <div>
+        <p>
+            <em>Artist:</em>
+            @Model.Artist.Name
+        </p>
+        <p>
+            <em>Price:</em>
+            @String.Format("{0:F}", Model.Price)
+        </p>
+        @*@Html.ActionLink("კალათაში დამატება", "AddToCart", "ShoppingCart", new { id=Model.AlbumId, @class = "btn btn-primary"})*@
+        <p>
+            @Ajax.ActionLink("კალათაში დამატება", "AddToCart", "ShoppingCart", new { id = Model.AlbumId },
+                new AjaxOptions
+                {
+                    UpdateTargetId = "reslt",
+                    InsertionMode = InsertionMode.Replace,
+                    HttpMethod = "POST"
+
+                }, new { @class = "btn btn-success" })
+
+        </p>
+
+        @*div sadac daabrunebs ro daemata warmatebit, + kalatshi gadasvlis gilaki, *@
+
+        
+
+    </div>
+
+    <div class="reslt"></div>
+
+
+
+    <div></div>
+
+
+
+</div>
+
+@section scripts
+{
+
+    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+}
+

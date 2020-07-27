@@ -1,0 +1,43 @@
+﻿@model muscshop.ViewModel.ShoppingCartViewModel
+
+
+    <table class="table">
+        <tr>
+            <th>
+                Album Name
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.CartItems)
+        {
+            <tr>
+                <td>
+                    @item.Album.Title
+                </td>
+                <td>
+                    @item.Album.Price
+                </td>
+                <td>
+                    @item.Count
+                </td>
+                <td>
+                    <a href="#">Delete</a>
+                </td>
+            </tr>
+
+        }
+    <tr>
+        <td></td>
+        <td></td>
+        <td>Total:</td>
+        <td>@Model.CartTotal</td>
+    </tr>
+
+    </table>
